@@ -15,8 +15,13 @@ Stack::~Stack()
 
 void Stack::push(double value)
 {
-    tos++;
-    stack[tos] = new double(value);
+    if (!isFull()) {
+        tos++; 
+        stack[tos] = new double(value);
+    }
+    else {
+        std::cout << "Stack overflow and can't handle more than " << STACK_MAX_SIZE << " items" << std::endl;
+    }
 }
 
 double Stack::pop()
@@ -30,7 +35,6 @@ double Stack::pop()
     }
     else
     {
-        // Handle stack underflow error
         return 0.0;
     }
 }
@@ -46,4 +50,8 @@ void Stack::print()
         }
     }
     std::cout << std::endl;
+}
+
+bool Stack::isFull() {
+	return tos >= STACK_MAX_SIZE - 1;
 }
