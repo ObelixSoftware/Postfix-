@@ -31,3 +31,5 @@
 *.out
 *.app
 postfix
+combined.txt
+/.vscode
