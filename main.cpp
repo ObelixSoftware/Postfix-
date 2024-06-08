@@ -20,6 +20,10 @@ int main() {
         if (line == "q" || line == "quit") {
             break;
         }
+        if (line == "clear") {
+            system("clear");
+            continue;
+        }
         std::cout << interpreter.compute(line) << std::endl << std::endl;
     }
 
