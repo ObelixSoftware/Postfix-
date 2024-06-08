@@ -1,4 +1,5 @@
 #pragma once
+#include "config.h"
 
 class Stack
 {
@@ -9,6 +10,6 @@ public:
     double pop();
     void print();
 private:
-    double *stack;
+    double* stack[STACK_MAX_SIZE] = {};
     int size, tos;
 };

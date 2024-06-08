@@ -12,6 +12,8 @@ int main() {
     stack.push(10);
     stack.push(5);
     stack.print();
+    std::cout << "pop: " << stack.pop() << std::endl;
+    stack.print();
 
     /*
     while (true)
