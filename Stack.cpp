@@ -2,11 +2,6 @@
 #include <algorithm>
 #include <iostream>
 
-Stack::Stack()
-{
-    size = STACK_MAX_SIZE;
-}
-
 Stack::~Stack()
 {
     for (int i = 0; i < size; ++i)
