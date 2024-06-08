@@ -54,6 +54,11 @@ double Interpreter::compute(const std::string& expression)
 				v2 = myStack.pop();
 				ret = (v2 / v1);
 			}
+			if (expression[i] == 'f')
+			{
+				v1 = myStack.pop();
+				ret = factorial(v1);
+			}
 			i++;
 			myStack.push(ret);
 		}
@@ -75,9 +80,17 @@ bool Interpreter::IsOp(char c)
 	case '-':
 	case '*':
 	case '/':
-	case 'p':
+	case 'f':
 		return true;
 	default:
 		return false;
 	}
+}
+
+long Interpreter::factorial(const int n)
+{
+    long f = 1;
+    for (int i=1; i<=n; ++i)
+        f *= i;
+    return f;
 }

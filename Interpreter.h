@@ -15,4 +15,5 @@ public:
 private:
     Stack myStack;
     bool IsOp(char);
+    long factorial(const int n);
 };
