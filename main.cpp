@@ -1,21 +1,16 @@
 #include <iostream>
+#include <string>
 #include "Stack.h"
+#include "Interpreter.h"
 
 int main() {
+    Stack stack{};
+    Interpreter interpreter(stack);
 
     std::cout << "Postfix++ Interpreter v1.0" << std::endl;
     std::cout << "Version 1.0" << std::endl << std::endl;
     std::cout << "Enter 'h' or 'help' for instructions or 'q' or 'quit' to quit the program" << std::endl << std::endl; 
     
-    Stack stack{};
-    
-    stack.push(10);
-    stack.push(5);
-    stack.print();
-    std::cout << "pop: " << stack.pop() << std::endl;
-    stack.print();
-
-    /*
     while (true)
     {
         std::string line;
@@ -25,7 +20,8 @@ int main() {
         if (line == "q" || line == "quit") {
             break;
         }
-    }*/
+        std::cout << interpreter.compute(line) << std::endl << std::endl;
+    }
 
     return 0;
 }
