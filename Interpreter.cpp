@@ -1,4 +1,5 @@
 #include "Interpreter.h"
+#include<cmath>
 
 double Interpreter::compute(const std::string& expression)
 {
@@ -54,10 +55,16 @@ double Interpreter::compute(const std::string& expression)
 				v2 = myStack.pop();
 				ret = (v2 / v1);
 			}
-			if (expression[i] == 'f')
+			if (expression[i] == '!')
 			{
 				v1 = myStack.pop();
 				ret = factorial(v1);
+			}
+			if (expression[i] == '^')
+			{
+				v1 = myStack.pop();
+				v2 = myStack.pop();
+				ret = pow(v2, v1);
 			}
 			i++;
 			myStack.push(ret);
@@ -80,7 +87,8 @@ bool Interpreter::IsOp(char c)
 	case '-':
 	case '*':
 	case '/':
-	case 'f':
+	case '!':
+	case '^':
 		return true;
 	default:
 		return false;
