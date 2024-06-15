@@ -1,4 +1,5 @@
 #include <cmath>
+#include <string>
 #include "Interpreter.h"
 #include "MathUtil.h"
 
@@ -34,41 +35,49 @@ double *Interpreter::compute(const std::string &expression)
 		{
 			if (expression[i] == '+')
 			{
+				checkRequireOperants(2);
 				v1 = getValue(myStack.pop());
 				v2 = getValue(myStack.pop());
 				ret = (v1 + v2);
 			}
 			if (expression[i] == '-')
 			{
+				checkRequireOperants(2);
 				v1 = getValue(myStack.pop());
 				v2 = getValue(myStack.pop());
 				ret = v2 - v1;
 			}
 			if (expression[i] == '*')
 			{
+				checkRequireOperants(2);
 				v1 = getValue(myStack.pop());
 				v2 = getValue(myStack.pop());
 				ret = (v1 * v2);
 			}
 			if (expression[i] == '/')
 			{
+				checkRequireOperants(2);
 				v1 = getValue(myStack.pop());
-				v2 = myStack.pop();
+				v2 = getValue(myStack.pop());
+				checkDivByZero(v2);
 				ret = (v2 / v1);
 			}
 			if (expression[i] == '!')
 			{
+				checkRequireOperants(1);
 				v1 = getValue(myStack.pop());
 				ret = MathUtil::factorial(v1);
 			}
 			if (expression[i] == '^')
 			{
+				checkRequireOperants(2);
 				v1 = getValue(myStack.pop());
 				v2 = getValue(myStack.pop());
 				ret = pow(v2, v1);
 			}
 			if (expression[i] == 'p')
 			{
+				checkRequireOperants(1);
 				char op1 = myStack.pop();
 				if (table.isVariable(op1) && table.isValid(op1)) {
 					std::cout << op1 << " = " << table.getValue(op1) << std::endl << std::endl;
@@ -80,6 +89,7 @@ double *Interpreter::compute(const std::string &expression)
 			}
 			if (expression[i] == '=')
 			{
+				checkRequireOperants(2);
 				char op1 = myStack.pop();
 				char op2 = myStack.pop();
 
@@ -160,4 +170,16 @@ double Interpreter::getValue(char tok)
 
 bool Interpreter::isVariable(char tok)  {
 	return table.isVariable(tok) && table.isValid(tok);
+}
+
+void Interpreter::checkDivByZero(double value) {
+	if (value == 0) {
+		throw std::runtime_error("Division by zero error");
+	}
+}
+
+void Interpreter::checkRequireOperants(int requireOps) {
+	if (myStack.capacity() < requireOps) {
+		throw std::runtime_error("Expression require " + std::to_string(requireOps) + "x operants"); 
+	}
 }

@@ -17,6 +17,8 @@ private:
     Stack myStack;
     SymbolTable table;
     bool IsOperator(char);
-    double getValue(char tok);
+    double getValue(char);
     bool isVariable(char);
+    void checkDivByZero(double);
+    void checkRequireOperants(int);
 };
