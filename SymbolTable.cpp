@@ -6,8 +6,8 @@ SymbolTable::SymbolTable()
 {
     for (int i = 0; i < 26; ++i)
     {
-        symbols[i].name = 'A' + i;
-        symbols[i].value = 0;
+        variables[i].name = 'A' + i;
+        variables[i].value = 0;
     }
 }
 
@@ -16,7 +16,7 @@ void SymbolTable::setValue(char name, double value)
     int index = name - 'A';
     if (index >= 0 && index < 26)
     {
-        symbols[index].value = value;
+        variables[index].value = value;
     }
     else
     {
@@ -29,7 +29,7 @@ double SymbolTable::getValue(char name)
     int index = name - 'A';
     if (index >= 0 && index < 26)
     {
-        return symbols[index].value;
+        return variables[index].value;
     }
     else
     {
@@ -42,7 +42,7 @@ void SymbolTable::printTable()
 {
     for (int i = 0; i < 26; ++i)
     {
-        std::cout << symbols[i].name << ": " << symbols[i].value << std::endl;
+        std::cout << variables[i].name << ": " << variables[i].value << std::endl;
     }
 }
 

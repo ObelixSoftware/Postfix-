@@ -18,5 +18,5 @@ public:
     bool isValid(char);
 
 private:
-    Symbol symbols[26];
+    Symbol variables[26];
 };
