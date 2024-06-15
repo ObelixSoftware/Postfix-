@@ -1,6 +1,8 @@
 #include "Stack.h"
 #include <algorithm>
 #include <iostream>
+#include <cstddef> 
+#include <iterator> 
 
 Stack::~Stack()
 {
@@ -54,4 +56,8 @@ void Stack::print()
 
 bool Stack::isFull() {
 	return tos >= STACK_MAX_SIZE - 1;
+}
+
+int Stack::capacity() {
+    return std::count_if(stack, stack + size, [](char* ptr) { return ptr != nullptr; });
 }

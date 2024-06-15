@@ -9,7 +9,7 @@ public:
     void push(char);
     char pop();
     void print();
-
+    int capacity();
 private:
     char *stack[STACK_MAX_SIZE] = {};
     int size = STACK_MAX_SIZE;
