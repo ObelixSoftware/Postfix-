@@ -59,7 +59,6 @@ bool SymbolTable::isValid(char name)
     }
     else
     {
-        std::cout << "Invalid variable reference: " << name << std::endl << std::endl;
         return false;
     }
 }

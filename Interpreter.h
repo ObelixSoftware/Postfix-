@@ -18,4 +18,5 @@ private:
     SymbolTable table;
     bool IsOperator(char);
     double getValue(char tok);
+    bool isVariable(char);
 };

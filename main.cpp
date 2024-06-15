@@ -7,9 +7,6 @@
 int main() {
     Stack stack{};
     SymbolTable table{};
-
-    table.setValue('A', 1);
-
     Interpreter interpreter(stack, table);
 
     std::cout << "Postfix++ Interpreter v1.0" << std::endl;
