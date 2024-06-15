@@ -6,12 +6,12 @@ class Stack
 public:
     Stack() = default;
     ~Stack();
-    void push(double);
-    double pop();
+    void push(char);
+    char pop();
     void print();
 
 private:
-    double *stack[STACK_MAX_SIZE] = {};
+    char *stack[STACK_MAX_SIZE] = {};
     int size = STACK_MAX_SIZE;
     int tos;
     bool isFull();

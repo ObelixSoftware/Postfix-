@@ -13,22 +13,22 @@ Stack::~Stack()
     }
 }
 
-void Stack::push(double value)
+void Stack::push(char value)
 {
     if (!isFull()) {
         tos++; 
-        stack[tos] = new double(value);
+        stack[tos] = new char(value);
     }
     else {
         std::cout << "Stack overflow and can't handle more than " << STACK_MAX_SIZE << " items" << std::endl;
     }
 }
 
-double Stack::pop()
+char Stack::pop()
 {
     if (tos > 0)
     {
-        double t = *stack[tos];
+        char t = *stack[tos];
         stack[tos] = nullptr;
         tos--;
         return t;

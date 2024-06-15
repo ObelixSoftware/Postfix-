@@ -26,11 +26,7 @@ double *Interpreter::compute(const std::string &expression)
 				tok += expression[i];
 				i++;
 			}
-			if (!pushOperant(tok))
-			{
-				valid = false;
-				break;
-			}
+			myStack.push(tok[0]);
 			tok = "";
 		}
 		// Check for operator
@@ -38,8 +34,8 @@ double *Interpreter::compute(const std::string &expression)
 		{
 			if (expression[i] == '+')
 			{
-				v1 = myStack.pop();
-				v2 = myStack.pop();
+				v1 = getValue(myStack.pop());
+				v2 = getValue(myStack.pop());
 				ret = (v1 + v2);
 			}
 			if (expression[i] == '-')
@@ -71,6 +67,9 @@ double *Interpreter::compute(const std::string &expression)
 				v2 = myStack.pop();
 				ret = pow(v2, v1);
 			}
+			if (expression[i] == '=')
+			{
+			}
 			i++;
 			myStack.push(ret);
 		}
@@ -97,19 +96,20 @@ bool Interpreter::IsOperator(char c)
 	case '/':
 	case '!':
 	case '^':
+	case '=':
 		return true;
 	default:
 		return false;
 	}
 }
 
-bool Interpreter::pushOperant(const std::string tok)
+double Interpreter::getValue(char tok)
 {
-	if (table.isVariable(tok[0]))
+	if (table.isVariable(tok))
 	{
-		if (table.isValid(tok[0]))
+		if (table.isValid(tok))
 		{
-			myStack.push(table.getValue(tok[0]));
+			return table.getValue(tok);
 		}
 		else
 		{
@@ -118,8 +118,9 @@ bool Interpreter::pushOperant(const std::string tok)
 	}
 	else
 	{
-		myStack.push(atof(tok.c_str()));
+		char *pChar = &tok;
+		return atof(pChar);
 	}
 
-	return true;
+	return 0;
 }
