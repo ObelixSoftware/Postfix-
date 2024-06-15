@@ -1,5 +1,6 @@
+#include <cmath>
 #include "Interpreter.h"
-#include<cmath>
+#include "MathUtil.h"
 
 double Interpreter::compute(const std::string& expression)
 {
@@ -58,7 +59,7 @@ double Interpreter::compute(const std::string& expression)
 			if (expression[i] == '!')
 			{
 				v1 = myStack.pop();
-				ret = factorial(v1);
+				ret = MathUtil::factorial(v1);
 			}
 			if (expression[i] == '^')
 			{
@@ -93,12 +94,4 @@ bool Interpreter::IsOp(char c)
 	default:
 		return false;
 	}
-}
-
-long Interpreter::factorial(const int n)
-{
-    long f = 1;
-    for (int i=1; i<=n; ++i)
-        f *= i;
-    return f;
 }
