@@ -19,9 +19,9 @@ double* Interpreter::compute(const std::string &expression)
 			i++;
 		}
 		// Check for digits and .
-		if (isdigit(expression[i]) || isalpha(expression[i]) || expression[i] == '.' || expression[i] == '-')
+		if (isdigit(expression[i]) || table.isVariable(expression[i]) || expression[i] == '.' || expression[i] == '-')
 		{
-			while (isdigit(expression[i]) || isalpha(expression[i]) || expression[i] == '.' || expression[i] == '-')
+			while (isdigit(expression[i]) || table.isVariable(expression[i]) || expression[i] == '.' || expression[i] == '-')
 			{
 				tok += expression[i];
 				i++;
