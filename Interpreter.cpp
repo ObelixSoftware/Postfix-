@@ -2,7 +2,7 @@
 #include "Interpreter.h"
 #include "MathUtil.h"
 
-double* Interpreter::compute(const std::string &expression)
+double *Interpreter::compute(const std::string &expression)
 {
 	int i = 0;
 	double v1, v2, ret;
@@ -26,14 +26,15 @@ double* Interpreter::compute(const std::string &expression)
 				tok += expression[i];
 				i++;
 			}
-			if (!pushOperant(tok)) {
+			if (!pushOperant(tok))
+			{
 				valid = false;
 				break;
 			}
 			tok = "";
 		}
 		// Check for operator
-		else if (IsOp(expression[i]))
+		else if (IsOperator(expression[i]))
 		{
 			if (expression[i] == '+')
 			{
@@ -75,7 +76,8 @@ double* Interpreter::compute(const std::string &expression)
 		}
 		else
 		{
-			std::cout << "Invaild expression" << std::endl << std::endl;
+			std::cout << "Invaild expression" << std::endl
+					  << std::endl;
 			valid = false;
 			break;
 		}
@@ -84,7 +86,7 @@ double* Interpreter::compute(const std::string &expression)
 	return valid == true ? new double(myStack.pop()) : nullptr;
 }
 
-bool Interpreter::IsOp(char c)
+bool Interpreter::IsOperator(char c)
 {
 	// Check for operators.
 	switch (c)
@@ -107,8 +109,7 @@ bool Interpreter::pushOperant(const std::string tok)
 	{
 		if (table.isValid(tok[0]))
 		{
-			double value = table.getValue(tok[0]);
-			myStack.push(value);
+			myStack.push(table.getValue(tok[0]));
 		}
 		else
 		{

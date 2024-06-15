@@ -38,7 +38,7 @@ float Pop(){
 }
 //Enf of stack code
 
-bool IsOp(char c){
+bool IsOperator(char c){
 	//Check for operators.
 	switch (c){
 		case '+':
@@ -74,7 +74,7 @@ double RPN(string expression){
 			tok = "";
 		}
 		//Check for operator
-		else if (IsOp(expression[i])){
+		else if (IsOperator(expression[i])){
 			if (expression[i] == '+'){
 				v1 = Pop();
 				v2 = Pop();

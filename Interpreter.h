@@ -16,6 +16,6 @@ public:
 private:
     Stack myStack;
     SymbolTable table;
-    bool IsOp(char);
+    bool IsOperator(char);
     bool pushOperant(const std::string tok);
 };
