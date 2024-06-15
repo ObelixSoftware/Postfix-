@@ -11,7 +11,7 @@ int main() {
 
     std::cout << "Postfix++ Interpreter v1.0" << std::endl;
     std::cout << "Version 1.0" << std::endl << std::endl;
-    std::cout << "Enter 'h' or 'help' for instructions or 'q' or 'quit' to quit the program" << std::endl << std::endl; 
+    std::cout << "Enter 'q' or 'quit' to quit the program" << std::endl << std::endl; 
 
     while (true)
     {
