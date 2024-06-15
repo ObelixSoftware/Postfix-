@@ -9,12 +9,13 @@ class Interpreter
 {
 
 public:
-    Interpreter(Stack stack, SymbolTable table) : myStack(stack), variableTable(table) {}
+    Interpreter(const Stack &stack, const SymbolTable &table) : myStack(stack), table(table) {}
 
-    double compute(const std::string &expression);
+    double* compute(const std::string &expression);
 
 private:
     Stack myStack;
-    SymbolTable variableTable;
+    SymbolTable table;
     bool IsOp(char);
+    bool pushOperant(const std::string tok);
 };

@@ -3,7 +3,7 @@
 struct Symbol
 {
     char name;
-    int value;
+    double value;
 };
 
 class SymbolTable
@@ -11,9 +11,11 @@ class SymbolTable
 public:
     SymbolTable();
 
-    void setValue(char name, int value);
-    int getValue(char name);
+    void setValue(char name, double value);
+    double getValue(char name);
     void printTable();
+    bool isVariable(char);
+    bool isValid(char);
 
 private:
     Symbol symbols[26];

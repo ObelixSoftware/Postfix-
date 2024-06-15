@@ -7,6 +7,9 @@
 int main() {
     Stack stack{};
     SymbolTable table{};
+
+    table.setValue('A', 1);
+
     Interpreter interpreter(stack, table);
 
     std::cout << "Postfix++ Interpreter v1.0" << std::endl;
@@ -26,7 +29,10 @@ int main() {
             system("clear");
             continue;
         }
-        std::cout << interpreter.compute(line) << std::endl << std::endl;
+        double* answer = interpreter.compute(line);
+        if (answer != nullptr) {
+            std::cout << *answer << std::endl << std::endl;
+        }
     }
 
     return 0;

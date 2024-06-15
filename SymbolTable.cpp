@@ -1,5 +1,6 @@
 #include "SymbolTable.h"
 #include <iostream>
+#include <cctype>
 
 SymbolTable::SymbolTable()
 {
@@ -10,7 +11,7 @@ SymbolTable::SymbolTable()
     }
 }
 
-void SymbolTable::setValue(char name, int value)
+void SymbolTable::setValue(char name, double value)
 {
     int index = name - 'A';
     if (index >= 0 && index < 26)
@@ -23,7 +24,7 @@ void SymbolTable::setValue(char name, int value)
     }
 }
 
-int SymbolTable::getValue(char name)
+double SymbolTable::getValue(char name)
 {
     int index = name - 'A';
     if (index >= 0 && index < 26)
@@ -42,5 +43,23 @@ void SymbolTable::printTable()
     for (int i = 0; i < 26; ++i)
     {
         std::cout << symbols[i].name << ": " << symbols[i].value << std::endl;
+    }
+}
+
+bool SymbolTable::isVariable(char name)
+{
+    return std::isalpha(name);
+}
+
+bool SymbolTable::isValid(char name)
+{
+    if (name >= 'A' && name <= 'Z')
+    {
+        return true;
+    }
+    else
+    {
+        std::cout << "Invalid variable reference: " << name << std::endl << std::endl;
+        return false;
     }
 }

@@ -2,13 +2,14 @@
 #include "Interpreter.h"
 #include "MathUtil.h"
 
-double Interpreter::compute(const std::string& expression)
+double* Interpreter::compute(const std::string &expression)
 {
 	int i = 0;
 	double v1, v2, ret;
 	v1 = ret = v2 = 0.0;
 
 	std::string tok = "";
+	bool valid = true;
 
 	while (i < expression.length())
 	{
@@ -18,15 +19,17 @@ double Interpreter::compute(const std::string& expression)
 			i++;
 		}
 		// Check for digits and .
-		if (isdigit(expression[i]) || expression[i] == '.' || expression[i] == '-')
+		if (isdigit(expression[i]) || isalpha(expression[i]) || expression[i] == '.' || expression[i] == '-')
 		{
-			while (isdigit(expression[i]) || expression[i] == '.' || expression[i] == '-')
+			while (isdigit(expression[i]) || isalpha(expression[i]) || expression[i] == '.' || expression[i] == '-')
 			{
 				tok += expression[i];
 				i++;
 			}
-			// Push on stack number.
-			myStack.push(atof(tok.c_str()));
+			if (!pushOperant(tok)) {
+				valid = false;
+				break;
+			}
 			tok = "";
 		}
 		// Check for operator
@@ -72,11 +75,13 @@ double Interpreter::compute(const std::string& expression)
 		}
 		else
 		{
-			std::cout << "Invaild expression" << std::endl;
+			std::cout << "Invaild expression" << std::endl << std::endl;
+			valid = false;
 			break;
 		}
 	}
-	return myStack.pop();
+
+	return valid == true ? new double(myStack.pop()) : nullptr;
 }
 
 bool Interpreter::IsOp(char c)
@@ -94,4 +99,26 @@ bool Interpreter::IsOp(char c)
 	default:
 		return false;
 	}
+}
+
+bool Interpreter::pushOperant(const std::string tok)
+{
+	if (table.isVariable(tok[0]))
+	{
+		if (table.isValid(tok[0]))
+		{
+			double value = table.getValue(tok[0]);
+			myStack.push(value);
+		}
+		else
+		{
+			return false;
+		}
+	}
+	else
+	{
+		myStack.push(atof(tok.c_str()));
+	}
+
+	return true;
 }
