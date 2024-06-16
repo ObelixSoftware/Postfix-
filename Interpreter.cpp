@@ -20,9 +20,9 @@ double *Interpreter::compute(const std::string &expression)
 			i++;
 		}
 		// Check for digits and .
-		if (isdigit(expression[i]) || isVariable(expression[i]) || expression[i] == '.' || expression[i] == '-')
+		if (isdigit(expression[i]) || table.isValidVariable(expression[i]) || expression[i] == '.' || expression[i] == '-')
 		{
-			while (isdigit(expression[i]) || isVariable(expression[i]) || expression[i] == '.' || expression[i] == '-')
+			while (isdigit(expression[i]) || table.isValidVariable(expression[i]) || expression[i] == '.' || expression[i] == '-')
 			{
 				tok += expression[i];
 				i++;
@@ -79,7 +79,7 @@ double *Interpreter::compute(const std::string &expression)
 			{
 				checkRequireOperants(1);
 				char op1 = myStack.pop();
-				if (table.isVariable(op1) && table.isValid(op1)) {
+				if (table.isValidVariable(op1)) {
 					std::cout << op1 << " = " << table.getValue(op1) << std::endl << std::endl;
 				}
 				else {
@@ -93,16 +93,15 @@ double *Interpreter::compute(const std::string &expression)
 				char op1 = myStack.pop();
 				char op2 = myStack.pop();
 
-				if ((table.isVariable(op1) && table.isValid(op1)) && 
-						(table.isVariable(op1) && table.isValid(op1))) {
+				if (table.isValidVariable(op1) && table.isValidVariable(op2)) {
 					table.setValue(op1, table.getValue(op2));			
 				}
-				else if (table.isVariable(op1) && table.isValid(op1)) {
+				else if (table.isValidVariable(op1)) {
 					if (isdigit(op2)) {
 						table.setValue(op1, getValue(op2));
 					}
 				}
-				if (table.isVariable(op2) && table.isValid(op2)) {
+				if (table.isValidVariable(op2)) {
 					if (isdigit(op1)) {
 						table.setValue(op2, getValue(op1));
 					}
@@ -124,9 +123,13 @@ double *Interpreter::compute(const std::string &expression)
 		}
 	}
 
+ // Return math expression answer
 	return isValidMathExpression == true ? new double(myStack.pop()) : nullptr;
 }
 
+/*
+  Check if token is a operator
+*/ 
 bool Interpreter::IsOperator(char c)
 {
 	// Check for operators.
@@ -146,6 +149,10 @@ bool Interpreter::IsOperator(char c)
 	}
 }
 
+/*
+  Get the value from the token being number of value 
+  of a veriable from symbol table
+*/
 double Interpreter::getValue(char tok)
 {
 	if (table.isVariable(tok))
@@ -168,16 +175,18 @@ double Interpreter::getValue(char tok)
 	return 0;
 }
 
-bool Interpreter::isVariable(char tok)  {
-	return table.isVariable(tok) && table.isValid(tok);
-}
-
+/*
+  Throw exception if devide by zero
+*/
 void Interpreter::checkDivByZero(double value) {
 	if (value == 0) {
 		throw std::runtime_error("Division by zero error");
 	}
 }
 
+/*
+  Throw exception if required operants provide not provided
+*/
 void Interpreter::checkRequireOperants(int requireOps) {
 	if (myStack.capacity() < requireOps) {
 		throw std::runtime_error("Expression require " + std::to_string(requireOps) + "x operants"); 
