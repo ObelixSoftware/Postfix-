@@ -20,7 +20,18 @@ Stack::~Stack()
 }
 
 /*
+  Indicate if stack is full
+
+  P 2.1c
+*/
+bool Stack::isFull() {
+	return tos >= STACK_MAX_SIZE - 1;
+}
+
+/*
   Push item to the Stack
+
+  P 2.1d
 */
 void Stack::push(char value)
 {
@@ -36,6 +47,8 @@ void Stack::push(char value)
 
 /*
   Pop item from Stack
+  
+  P 2.1e
 */
 char Stack::pop()
 {
@@ -56,6 +69,8 @@ char Stack::pop()
 
 /*
   Print stack content
+
+  P 2.1f 
 */
 void Stack::print()
 {
@@ -71,14 +86,9 @@ void Stack::print()
 }
 
 /*
-  Indicate if stack is full
-*/
-bool Stack::isFull() {
-	return tos >= STACK_MAX_SIZE - 1;
-}
-
-/*
   Return stack capacity e.g. how many elements are occupied
+
+  P 2.1g
 */
 int Stack::capacity() {
     return std::count_if(stack, stack + size, [](char* ptr) { return ptr != nullptr; });
