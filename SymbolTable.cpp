@@ -17,6 +17,8 @@ SymbolTable::SymbolTable()
 
 /*
   Set variable value
+
+  P 2.2d
 */
 void SymbolTable::setValue(char name, double value)
 {
@@ -34,6 +36,8 @@ void SymbolTable::setValue(char name, double value)
 
 /*
   Get variable value
+
+  P 2.2e
 */
 double SymbolTable::getValue(char name)
 {
@@ -51,18 +55,9 @@ double SymbolTable::getValue(char name)
 }
 
 /*
-  Print variables content
-*/
-void SymbolTable::printTable()
-{
-    for (int i = 0; i < 26; ++i)
-    {
-        std::cout << variables[i].name << ": " << variables[i].value << std::endl;
-    }
-}
-
-/*
   is a variable since not a numeric digit
+
+  P 2.2f
 */
 bool SymbolTable::isVariable(char name)
 {
@@ -71,6 +66,8 @@ bool SymbolTable::isVariable(char name)
 
 /*
   Is a valid A-Z variable
+  
+  P 2.2g
 */
 bool SymbolTable::isValid(char name)
 {
@@ -79,7 +76,22 @@ bool SymbolTable::isValid(char name)
 
 /*
   Is valid variable
+
+  P 2.2h
 */
 bool SymbolTable::isValidVariable(char tok)  {
 	return isVariable(tok) && isValid(tok);
+}
+
+/*
+  Print variables content
+
+  P 2.2i
+*/
+void SymbolTable::printTable()
+{
+    for (int i = 0; i < 26; ++i)
+    {
+        std::cout << variables[i].name << ": " << variables[i].value << std::endl;
+    }
 }
