@@ -76,3 +76,10 @@ bool SymbolTable::isValid(char name)
 {
     return name >= 'A' && name <= 'Z';
 }
+
+/*
+  Is valid variable
+*/
+bool SymbolTable::isValidVariable(char tok)  {
+	return isVariable(tok) && isValid(tok);
+}
