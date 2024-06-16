@@ -24,7 +24,7 @@ public:
     
 private:
     // Init a stack of STAX_MAX_SIZE
-    
+    // P 2.1b
     char *stack[STACK_MAX_SIZE] = {};
     int size = STACK_MAX_SIZE;
     int tos;
