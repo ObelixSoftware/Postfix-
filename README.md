@@ -2,12 +2,12 @@
 
 ## Todo 
 
-* Document Symbol Table pseudocode 
 * Link pseudocode to source code
 * Do video 
 
 ## Completed 
 
+* Document Symbol Table pseudocode 
 * Comment all source code
 * Implement Symbol Table
 * Basic Stack
