@@ -38,7 +38,7 @@ void SymbolTable::setValue(char name, double value)
 double SymbolTable::getValue(char name)
 {
     int index = name - 'A';
-    if (index >= 0 && index < 26)
+    if (index >= 0 && index < SYMBOL_TABLE_SIZE)
     {
         return variables[index].value;
     }
