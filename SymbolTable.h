@@ -22,6 +22,9 @@ public:
     
     // Is a valid variable in the range A-Z
     bool isValid(char);
+    
+    // Is valid variable
+	bool isValidVariable(char);
 
 private:
     // Structure of each variable element
