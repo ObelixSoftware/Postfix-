@@ -23,9 +23,8 @@ private:
     bool IsOperator(char);
     // Get the value from the token being number of value of a veriable from symbol table
     double getValue(char);
-    // is a variable
-    bool isValidVariable(char);
-    // Error handling, check for divison by zero and operants requried
+    // Throw exception if devision by zero
     void checkDivByZero(double);
+    // Throw exception if required operants not provided
     void checkRequireOperants(int);
 };
