@@ -2,13 +2,13 @@
 
 ## Todo 
 
-* Comment all source code
+* Document Symbol Table pseudocode 
 * Link pseudocode to source code
-* Documet Symbol Table pseudocode 
 * Do video 
 
 ## Completed 
 
+* Comment all source code
 * Implement Symbol Table
 * Basic Stack
 * Implement Stack
