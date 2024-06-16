@@ -4,8 +4,12 @@
 #include <cstddef> 
 #include <iterator> 
 
+/*
+ De-constructor
+*/
 Stack::~Stack()
 {
+    // Cleanup memory of all stack items
     for (int i = 0; i < size; ++i)
     {
         if (stack[i] != nullptr)
@@ -15,6 +19,9 @@ Stack::~Stack()
     }
 }
 
+/*
+  Push item to the Stack
+*/
 void Stack::push(char value)
 {
     if (!isFull()) {
@@ -22,6 +29,7 @@ void Stack::push(char value)
         stack[tos] = new char(value);
     }
     else {
+        // More than STACK_MAX_SIZE is returned so output error
         std::cout << "Stack overflow and can't handle more than " << STACK_MAX_SIZE << " items" << std::endl;
     }
 }
