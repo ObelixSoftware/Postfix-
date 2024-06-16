@@ -1,6 +1,13 @@
 #pragma once
 
-#include 'config.h'
+#include "config.h"
+
+// Structure of each variable element
+// P 2.2b
+struct Symbol {
+    char name;
+    double value;
+};
 
 class SymbolTable
 {
@@ -27,13 +34,6 @@ public:
 	bool isValidVariable(char);
 
 private:
-    // Structure of each variable element
-    // P 2.2b
-	struct Symbol
-	    char name;
- 	   double value;
-	};
-
     // Array of variables A-Z
     // P 2.2c
     Symbol variables[SYMBOL_TABLE_SIZE];
