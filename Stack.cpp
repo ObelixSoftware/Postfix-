@@ -30,25 +30,33 @@ void Stack::push(char value)
     }
     else {
         // More than STACK_MAX_SIZE is returned so output error
-        std::cout << "Stack overflow and can't handle more than " << STACK_MAX_SIZE << " items" << std::endl;
+        std::cerr << "Stack overflow and can't handle more than " << STACK_MAX_SIZE << " items" << std::endl;
     }
 }
 
+/*
+  Pop item from Stack
+*/
 char Stack::pop()
 {
     if (tos > 0)
     {
+		// Get item 
         char t = *stack[tos];
+		// Cleanup item
         stack[tos] = nullptr;
         tos--;
         return t;
     }
-    else
+    else // If no more items then return 0.0
     {
         return 0.0;
     }
 }
 
+/*
+  Print stack content
+*/
 void Stack::print()
 {
     std::cout << std::endl;
@@ -62,10 +70,16 @@ void Stack::print()
     std::cout << std::endl;
 }
 
+/*
+  Indicate if stack is full
+*/
 bool Stack::isFull() {
 	return tos >= STACK_MAX_SIZE - 1;
 }
 
+/*
+  Return stack capacity e.g. how many elements are occupied
+*/
 int Stack::capacity() {
     return std::count_if(stack, stack + size, [](char* ptr) { return ptr != nullptr; });
 }
