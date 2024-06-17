@@ -6,7 +6,7 @@
 double* Interpreter::compute(const std::string &expression)
 {
 	int i = 0;
-	double v1, v2, ret = 0.0;
+	double value1, value2, result = 0.0;
 
 	std::string tok = "";
 
@@ -36,44 +36,44 @@ double* Interpreter::compute(const std::string &expression)
 			if (expression[i] == '+')
 			{
 				checkRequireOperants(2);
-				v1 = getValue(myStack.pop());
-				v2 = getValue(myStack.pop());
-				ret = v1 + v2;
+				value1 = getValue(myStack.pop());
+				value2 = getValue(myStack.pop());
+				result = value1 + value2;
 			}
 			if (expression[i] == '-')
 			{
 				checkRequireOperants(2);
-				v1 = getValue(myStack.pop());
-				v2 = getValue(myStack.pop());
-				ret = v2 - v1;
+				value1 = getValue(myStack.pop());
+				value2 = getValue(myStack.pop());
+				result = value2 - value1;
 			}
 			if (expression[i] == '*')
 			{
 				checkRequireOperants(2);
-				v1 = getValue(myStack.pop());
-				v2 = getValue(myStack.pop());
-				ret = v1 * v2;
+				value1 = getValue(myStack.pop());
+				value2 = getValue(myStack.pop());
+				result = value1 * value2;
 			}
 			if (expression[i] == '/')
 			{
 				checkRequireOperants(2);
-				v1 = getValue(myStack.pop());
-				v2 = getValue(myStack.pop());
-				checkDivByZero(v2);
-				ret = v2 / v1;
+				value1 = getValue(myStack.pop());
+				value2 = getValue(myStack.pop());
+				checkDivByZero(value2);
+				result = value2 / value1;
 			}
 			if (expression[i] == '!')
 			{
 				checkRequireOperants(1);
-				v1 = getValue(myStack.pop());
-				ret = MathUtil::factorial(v1);
+				value1 = getValue(myStack.pop());
+				result = MathUtil::factorial(value1);
 			}
 			if (expression[i] == '^')
 			{
 				checkRequireOperants(2);
-				v1 = getValue(myStack.pop());
-				v2 = getValue(myStack.pop());
-				ret = pow(v2, v1);
+				value1 = getValue(myStack.pop());
+				value2 = getValue(myStack.pop());
+				result = pow(value2, value1);
 			}
 			if (expression[i] == 'p')
 			{
@@ -112,7 +112,7 @@ double* Interpreter::compute(const std::string &expression)
 				isValidMathExpression = false;
 			}
 			i++;
-			myStack.push(std::to_string(ret));
+			myStack.push(std::to_string(result));
 		}
 		else
 		{
