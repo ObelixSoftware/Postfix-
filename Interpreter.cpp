@@ -6,8 +6,9 @@
 double Interpreter::compute(const std::string &expression)
 {
 	int i = 0;
-	double v1, v2, ret;
-	v1 = ret = v2 = 0.0;
+	double v1, v2;
+	v1 = v2 = 0.0;
+	double* ret = nullptr;
 
 	std::string tok = "";
 
@@ -26,8 +27,6 @@ double Interpreter::compute(const std::string &expression)
 				tok += expression[i];
 				i++;
 			}
-			std::cout << "tok: " << tok << std::endl;
-			std::cout << "tok[0]: " << tok[0] << std::endl;
 			myStack.push(tok[0]);
 			tok = "";
 		}
@@ -37,29 +36,23 @@ double Interpreter::compute(const std::string &expression)
 			if (expression[i] == '+')
 			{
 				checkRequireOperants(2);
-				v1 = myStack.pop();
-				v2 = myStack.pop();
-				std::cout << "v1 : " << v1 << std::endl;
-				std::cout << "v2 : " << v2 << std::endl;
-				v1 = getValue(v1);
-				v2 = getValue(v2);
-				std::cout << "v1 : " << v1 << std::endl;
-				std::cout << "v2 : " << v2 << std::endl;
-				ret = (v1 + v2);
+				v1 = getValue(myStack.pop());
+				v2 = getValue(myStack.pop());
+				ret = new double(v1 + v2);
 			}
 			if (expression[i] == '-')
 			{
 				checkRequireOperants(2);
 				v1 = getValue(myStack.pop());
 				v2 = getValue(myStack.pop());
-				ret = v2 - v1;
+				ret = new double (v2 - v1);
 			}
 			if (expression[i] == '*')
 			{
 				checkRequireOperants(2);
 				v1 = getValue(myStack.pop());
 				v2 = getValue(myStack.pop());
-				ret = (v1 * v2);
+				ret = new double(v1 * v2);
 			}
 			if (expression[i] == '/')
 			{
@@ -67,20 +60,20 @@ double Interpreter::compute(const std::string &expression)
 				v1 = getValue(myStack.pop());
 				v2 = getValue(myStack.pop());
 				checkDivByZero(v2);
-				ret = (v2 / v1);
+				ret = new double(v2 / v1);
 			}
 			if (expression[i] == '!')
 			{
 				checkRequireOperants(1);
 				v1 = getValue(myStack.pop());
-				ret = MathUtil::factorial(v1);
+				ret = new double(MathUtil::factorial(v1));
 			}
 			if (expression[i] == '^')
 			{
 				checkRequireOperants(2);
 				v1 = getValue(myStack.pop());
 				v2 = getValue(myStack.pop());
-				ret = pow(v2, v1);
+				ret = new double(pow(v2, v1));
 			}
 			if (expression[i] == 'p')
 			{
@@ -117,7 +110,9 @@ double Interpreter::compute(const std::string &expression)
 				}
 			}
 			i++;
-			myStack.push(ret);
+			if (ret != nullptr) {
+				myStack.push(*ret);
+			}
 		}
 		else
 		{
