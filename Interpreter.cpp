@@ -29,7 +29,7 @@ double* Interpreter::compute(const std::string &expression)
 				tok += expression[i];
 				i++;
 			}
-			myStack.push(tok[0]);
+			myStack.push(tok);
 			tok = "";
 		}
 		// Check for operator
@@ -80,42 +80,42 @@ double* Interpreter::compute(const std::string &expression)
 			if (expression[i] == 'p')
 			{
 				checkRequireOperants(1);
-				char op1 = myStack.pop();
-				if (table.isValidVariable(op1)) {
-					std::cout << op1 << " = " << table.getValue(op1) << std::endl << std::endl;
+				std::string op1 = myStack.pop();
+				if (table.isValidVariable(op1[0])) {
+					std::cout << op1 << " = " << table.getValue(op1[0]) << std::endl << std::endl;
 				}
 				else {
-					throw std::runtime_error("Invalid variable reference: " + std::string(1, op1));
+					throw std::runtime_error("Invalid variable reference: " + op1);
 				}
 				isValidMathExpression = false;
 			}
 			if (expression[i] == '=')
 			{
 				checkRequireOperants(2);
-				char op1 = myStack.pop();
-				char op2 = myStack.pop();
+				std::string op1 = myStack.pop();
+				std::string op2 = myStack.pop();
 
-				if (table.isValidVariable(op1) && table.isValidVariable(op2)) {
-					table.setValue(op1, table.getValue(op2));			
+				if (table.isValidVariable(op1[0]) && table.isValidVariable(op2[0])) {
+					table.setValue(op1[0], table.getValue(op2[0]));			
 				}
-				else if (table.isValidVariable(op1)) {
-					if (isdigit(op2)) {
-						table.setValue(op1, getValue(op2));
+				else if (table.isValidVariable(op1[0])) {
+					if (isdigit(op2[0])) {
+						table.setValue(op1[0], getValue(op2));
 					}
 				}
-				if (table.isValidVariable(op2)) {
-					if (isdigit(op1)) {
-						table.setValue(op2, getValue(op1));
+				if (table.isValidVariable(op2[0])) {
+					if (isdigit(op1[0])) {
+						table.setValue(op2[0], getValue(op1));
 					}
 				}
 				else {
-					throw std::runtime_error("Invalid variable reference: " + std::string(1, op2));
+					throw std::runtime_error("Invalid variable reference: " + op2);
 				}
 				isValidMathExpression = false;
 			}
 			i++;
 			if (ret != nullptr) {
-				myStack.push(*ret);
+				myStack.push(std::to_string(*ret));
 			}
 		}
 		else
@@ -126,7 +126,7 @@ double* Interpreter::compute(const std::string &expression)
 	}
 
  	// Return math expression answer
-	return isValidMathExpression ? new double(myStack.pop()) : nullptr;
+	return isValidMathExpression ? new double(std::stod(myStack.pop())) : nullptr;
 }
 
 /*
@@ -155,13 +155,13 @@ bool Interpreter::IsOperator(char c)
   Get the value from the token being number of value 
   of a veriable from symbol table
 */
-double Interpreter::getValue(char tok)
+double Interpreter::getValue(std::string tok)
 {
-	if (table.isVariable(tok))
+	if (table.isVariable(tok[0]))
 	{
-		if (table.isValid(tok))
+		if (table.isValid(tok[0]))
 		{
-			return table.getValue(tok);
+			return table.getValue(tok[0]);
 		}
 		else
 		{
@@ -170,8 +170,7 @@ double Interpreter::getValue(char tok)
 	}
 	else
 	{
-		char *pChar = &tok;
-		return atof(pChar);
+		return std::stod(tok);
 	}
 
 	return 0;

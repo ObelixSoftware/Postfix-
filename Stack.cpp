@@ -33,11 +33,11 @@ bool Stack::isFull() {
 
   P 2.1d
 */
-void Stack::push(char value)
+void Stack::push(std::string value)
 {
     if (!isFull()) {
         tos++; 
-        stack[tos] = new char(value);
+        stack[tos] = new std::string(value);
     }
     else {
         // More than STACK_MAX_SIZE is returned so output error
@@ -50,20 +50,20 @@ void Stack::push(char value)
   
   P 2.1e
 */
-char Stack::pop()
+std::string Stack::pop()
 {
     if (tos > 0)
     {
 		// Get item 
-        char t = *stack[tos];
+        std::string t = *stack[tos];
 		// Cleanup item
         stack[tos] = nullptr;
         tos--;
         return t;
     }
-    else // If no more items then return 0.0
+    else // If no more items then return empty string
     {
-        return 0.0;
+        return "";
     }
 }
 
@@ -91,5 +91,5 @@ void Stack::print()
   P 2.1g
 */
 int Stack::capacity() {
-    return std::count_if(stack, stack + size, [](char* ptr) { return ptr != nullptr; });
+    return std::count_if(stack, stack + size, [](std::string* ptr) { return ptr != nullptr; });
 }

@@ -22,7 +22,7 @@ private:
     // Indicate if char is a operator
     bool IsOperator(char);
     // Get the value from the token being number of value of a veriable from symbol table
-    double getValue(char);
+    double getValue(std::string);
     // Throw exception if devision by zero
     void checkDivByZero(double);
     // Throw exception if required operants not provided

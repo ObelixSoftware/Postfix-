@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 #include "config.h"
 
 class Stack
@@ -11,10 +12,10 @@ public:
     ~Stack();
     
     // Push character item to the Stack
-    void push(char);
+    void push(std::string value);
     
     // Pop item from top of the Stack
-    char pop();
+    std::string pop();
     
     // Print Stack content
     void print();
@@ -25,7 +26,7 @@ public:
 private:
     // Init a stack of STAX_MAX_SIZE
     // P 2.1b
-    char *stack[STACK_MAX_SIZE] = {};
+    std::string *stack[STACK_MAX_SIZE] = {};
     int size = STACK_MAX_SIZE;
     int tos;
     // Is Stack full
