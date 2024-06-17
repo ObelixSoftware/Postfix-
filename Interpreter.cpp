@@ -3,7 +3,7 @@
 #include "Interpreter.h"
 #include "MathUtil.h"
 
-double Interpreter::compute(const std::string &expression)
+double* Interpreter::compute(const std::string &expression)
 {
 	int i = 0;
 	double v1, v2;
@@ -11,6 +11,8 @@ double Interpreter::compute(const std::string &expression)
 	double* ret = nullptr;
 
 	std::string tok = "";
+
+	bool isValidMathExpression = true;
 
 	while (i < expression.length())
 	{
@@ -85,6 +87,7 @@ double Interpreter::compute(const std::string &expression)
 				else {
 					throw std::runtime_error("Invalid variable reference: " + std::string(1, op1));
 				}
+				isValidMathExpression = false;
 			}
 			if (expression[i] == '=')
 			{
@@ -108,6 +111,7 @@ double Interpreter::compute(const std::string &expression)
 				else {
 					throw std::runtime_error("Invalid variable reference: " + std::string(1, op2));
 				}
+				isValidMathExpression = false;
 			}
 			i++;
 			if (ret != nullptr) {
@@ -122,7 +126,7 @@ double Interpreter::compute(const std::string &expression)
 	}
 
  	// Return math expression answer
-	return myStack.pop();
+	return isValidMathExpression ? new double(myStack.pop()) : nullptr;
 }
 
 /*

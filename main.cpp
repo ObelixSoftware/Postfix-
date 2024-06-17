@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 #include <string>
 #include "Stack.h"
 #include "SymbolTable.h"
@@ -11,12 +12,14 @@ int main()
     SymbolTable table{};
     Interpreter interpreter(stack, table);
 
-	// Intro text
+    // Intro text
     std::cout << "Postfix++ Interpreter v1.0" << std::endl;
     std::cout << "Version 1.0" << std::endl
               << std::endl;
     std::cout << "Enter 'q' or 'quit' to quit the program" << std::endl
               << std::endl;
+
+    std::cout << std::fixed << std::setprecision(2);
 
     while (true)
     {
@@ -24,28 +27,33 @@ int main()
         std::cout << "> ";
         std::getline(std::cin, line);
         std::cout << std::endl;
-		
-		// Quit the program
+
+        // Quit the program
         if (line == "q" || line == "quit")
         {
             break;
         }
-		
-		// Clear the screen
+
+        // Clear the screen
         if (line == "clear")
         {
             system("clear");
             continue;
         }
-  
+
         try
         {
-            std::cout << interpreter.compute(line) << std::endl
+            double *answer = interpreter.compute(line);
+            if (answer != nullptr)
+            {
+                std::cout << *answer << std::endl
                           << std::endl;
+            }
         }
         catch (const std::runtime_error &e) // Display any intepreter errors
         {
-            std::cerr << e.what() << std::endl << std::endl;
+            std::cerr << e.what() << std::endl
+                      << std::endl;
         }
     }
 
