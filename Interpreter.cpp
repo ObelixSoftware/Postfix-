@@ -6,9 +6,7 @@
 double* Interpreter::compute(const std::string &expression)
 {
 	int i = 0;
-	double v1, v2;
-	v1 = v2 = 0.0;
-	double* ret = nullptr;
+	double v1, v2, ret = 0.0;
 
 	std::string tok = "";
 
@@ -40,21 +38,21 @@ double* Interpreter::compute(const std::string &expression)
 				checkRequireOperants(2);
 				v1 = getValue(myStack.pop());
 				v2 = getValue(myStack.pop());
-				ret = new double(v1 + v2);
+				ret = v1 + v2;
 			}
 			if (expression[i] == '-')
 			{
 				checkRequireOperants(2);
 				v1 = getValue(myStack.pop());
 				v2 = getValue(myStack.pop());
-				ret = new double (v2 - v1);
+				ret = v2 - v1;
 			}
 			if (expression[i] == '*')
 			{
 				checkRequireOperants(2);
 				v1 = getValue(myStack.pop());
 				v2 = getValue(myStack.pop());
-				ret = new double(v1 * v2);
+				ret = v1 * v2;
 			}
 			if (expression[i] == '/')
 			{
@@ -62,20 +60,20 @@ double* Interpreter::compute(const std::string &expression)
 				v1 = getValue(myStack.pop());
 				v2 = getValue(myStack.pop());
 				checkDivByZero(v2);
-				ret = new double(v2 / v1);
+				ret = v2 / v1;
 			}
 			if (expression[i] == '!')
 			{
 				checkRequireOperants(1);
 				v1 = getValue(myStack.pop());
-				ret = new double(MathUtil::factorial(v1));
+				ret = MathUtil::factorial(v1);
 			}
 			if (expression[i] == '^')
 			{
 				checkRequireOperants(2);
 				v1 = getValue(myStack.pop());
 				v2 = getValue(myStack.pop());
-				ret = new double(pow(v2, v1));
+				ret = pow(v2, v1);
 			}
 			if (expression[i] == 'p')
 			{
@@ -114,9 +112,7 @@ double* Interpreter::compute(const std::string &expression)
 				isValidMathExpression = false;
 			}
 			i++;
-			if (ret != nullptr) {
-				myStack.push(std::to_string(*ret));
-			}
+			myStack.push(std::to_string(ret));
 		}
 		else
 		{
