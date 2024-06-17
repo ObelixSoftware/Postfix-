@@ -40,13 +40,8 @@ int main()
   
         try
         {
-            double *answer = interpreter.compute(line);
-			// Output answer if valid math expression
-            if (answer != nullptr)
-            {
-                std::cout << *answer << std::endl
+            std::cout << interpreter.compute(line) << std::endl
                           << std::endl;
-            }
         }
         catch (const std::runtime_error &e) // Display any intepreter errors
         {

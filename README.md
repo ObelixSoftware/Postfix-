@@ -2,7 +2,6 @@
 
 ## Todo 
 
-* Link pseudocode to source code
 * Do video 
 
 ## Completed 
@@ -15,3 +14,4 @@
 * Basic RPN
 * Error handling : Prevent multiple and divide by zero 
 * Error handling : Check required operands per math 
+* Link pseudocode to source code

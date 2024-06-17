@@ -3,14 +3,13 @@
 #include "Interpreter.h"
 #include "MathUtil.h"
 
-double *Interpreter::compute(const std::string &expression)
+double Interpreter::compute(const std::string &expression)
 {
 	int i = 0;
 	double v1, v2, ret;
 	v1 = ret = v2 = 0.0;
 
 	std::string tok = "";
-	bool isValidMathExpression = true;
 
 	while (i < expression.length())
 	{
@@ -27,6 +26,8 @@ double *Interpreter::compute(const std::string &expression)
 				tok += expression[i];
 				i++;
 			}
+			std::cout << "tok: " << tok << std::endl;
+			std::cout << "tok[0]: " << tok[0] << std::endl;
 			myStack.push(tok[0]);
 			tok = "";
 		}
@@ -36,8 +37,14 @@ double *Interpreter::compute(const std::string &expression)
 			if (expression[i] == '+')
 			{
 				checkRequireOperants(2);
-				v1 = getValue(myStack.pop());
-				v2 = getValue(myStack.pop());
+				v1 = myStack.pop();
+				v2 = myStack.pop();
+				std::cout << "v1 : " << v1 << std::endl;
+				std::cout << "v2 : " << v2 << std::endl;
+				v1 = getValue(v1);
+				v2 = getValue(v2);
+				std::cout << "v1 : " << v1 << std::endl;
+				std::cout << "v2 : " << v2 << std::endl;
 				ret = (v1 + v2);
 			}
 			if (expression[i] == '-')
@@ -83,9 +90,8 @@ double *Interpreter::compute(const std::string &expression)
 					std::cout << op1 << " = " << table.getValue(op1) << std::endl << std::endl;
 				}
 				else {
-					std::cout << "Invalid variable reference: " << op1 << std::endl << std::endl;
+					throw std::runtime_error("Invalid variable reference: " + std::string(1, op1));
 				}
-				isValidMathExpression = false;
 			}
 			if (expression[i] == '=')
 			{
@@ -107,24 +113,21 @@ double *Interpreter::compute(const std::string &expression)
 					}
 				}
 				else {
-					std::cout << "Invalid variable reference: " << op2 << std::endl << std::endl;
+					throw std::runtime_error("Invalid variable reference: " + std::string(1, op2));
 				}
-				isValidMathExpression = false;
 			}
 			i++;
 			myStack.push(ret);
 		}
 		else
 		{
-			std::cout << "Invaild expression" << std::endl
-					  << std::endl;
-			isValidMathExpression = false;
+			throw std::runtime_error("Invaild expression");
 			break;
 		}
 	}
 
- // Return math expression answer
-	return isValidMathExpression == true ? new double(myStack.pop()) : nullptr;
+ 	// Return math expression answer
+	return myStack.pop();
 }
 
 /*

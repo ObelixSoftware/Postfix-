@@ -12,7 +12,7 @@ public:
     Interpreter(const Stack &stack, const SymbolTable &table) : myStack(stack), table(table) {}
 
 	// Compute the RPN expression
-    double* compute(const std::string &expression);
+    double compute(const std::string &expression);
 
 private:
     // Reference to the Stack
