@@ -1,8 +1,6 @@
 # Postfix++
 
-## Todo 
-
-* Do video 
+https://youtu.be/T0j4MDn9MkI?si=WJwphUIPfUCpKG_l
 
 ## Completed 
 
